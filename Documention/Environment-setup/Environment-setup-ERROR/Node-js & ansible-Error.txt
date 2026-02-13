@@ -1,0 +1,107 @@
+Node.js 18 is deprecated (warning, not fatal)
+
+Ansible PPA not found (fatal error for Ubuntu 24.04 "Noble")
+
+Let me give you the corrected installation commands:
+
+🔧 FIXED INSTALLATION COMMANDS
+Run these one by one:
+
+1. Fix Ansible Installation (for Ubuntu 24.04 Noble)
+bash
+# Remove the broken PPA
+sudo add-apt-repository --remove ppa:ansible/ansible
+
+# Install Ansible from official Ubuntu repo (or use pip)
+sudo apt update
+sudo apt install ansible -y
+# OR get latest via pip
+sudo apt install python3-pip -y
+pip3 install --user ansible
+
+2. Install Node.js 20 LTS (Recommended)
+bash
+# Use Node.js 20 LTS instead of 18
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install -y nodejs
+node --version  # Should show v20.x
+npm --version
+
+3. Continue with remaining installations
+bash
+# Python for monitoring
+sudo apt install python3 python3-pip python3-venv -y
+
+# AWS CLI (if not already installed)
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+aws --version
+
+# Optional: Terraform
+wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update && sudo apt install terraform -y
+
+4. Verify Docker (if not installed)
+bash
+# Check if Docker is installed
+docker --version
+
+# If not, install:
+sudo apt install docker.io -y
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo usermod -aG docker $USER
+newgrp docker
+
+✅ Quick Verification
+bash
+# Check versions
+node --version   # Should be v20.x
+npm --version    # Should be 10.x
+ansible --version  # Should work now
+docker --version
+docker-compose --version
+Run these fixed commands and let me know when complete.
+
+echo ERROR :
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+2026-02-13 15:35:58 -
+"===============================================================================
+                            DEPRECATION WARNING
+===============================================================================
+Node.js 18.x is no longer actively supported!
+You will not receive security or critical stability updates for this version.
+
+You should migrate to a supported version of Node.js as soon as possible.
+
+Please see https://nodesource.com/products/distributions for details about which
+version may be appropriate for you.
+
+The NodeSource Node.js distributions site contains
+information both about supported versions of Node.js and N|Solid supported Linux
+distributions. To learn more about usage, see:
+https://nodesource.com/products/distributions
+
+===============================================================================
+
+Continuing in 10 seconds ...
+
+2026-02-13 15:36:08 - Installing pre-requisites
+Hit:1 https://dl.google.com/linux/chrome/deb stable InRelease
+Hit:2 http://in.archive.ubuntu.com/ubuntu noble InRelease
+Hit:3 http://in.archive.ubuntu.com/ubuntu noble-updates InRelease
+Hit:4 http://security.ubuntu.com/ubuntu noble-security InRelease
+Hit:5 http://in.archive.ubuntu.com/ubuntu noble-backports InRelease
+Hit:6 https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev antigravity-debian InRelease
+Ign:7 https://ppa.launchpadcontent.net/ansible/ansible/ubuntu noble-date InRelease
+Hit:8 https://ppa.launchpadcontent.net/deadsnakes/ppa/ubuntu noble InRelease
+Err:9 https://ppa.launchpadcontent.net/ansible/ansible/ubuntu noble-date Release
+  404  Not Found [IP: 2620:2d:4000:1::81 443]
+Reading package lists... Done
+E: The repository 'https://ppa.launchpadcontent.net/ansible/ansible/ubuntu noble-date Release' does not have a Release file.
+N: Updating from such a repository can't be done securely, and is therefore disabled by default.
+N: See apt-secure(8) manpage for repository creation and user configuration details.
+2026-02-13 15:36:14 - Error: Failed to run 'apt update' (Exit Code: 0)"
+

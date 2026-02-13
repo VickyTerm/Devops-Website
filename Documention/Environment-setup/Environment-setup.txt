@@ -1,0 +1,173 @@
+﻿environment setup sequence:
+
+🛠 PHASE 1: CORE INSTALLATIONS (Ubuntu Terminal)
+Run these in order:
+
+bash
+# 1. System Update
+sudo apt update && sudo apt upgrade -y
+
+# 2. Docker + Docker Compose
+sudo apt install docker.io -y
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo usermod -aG docker $USER
+newgrp docker
+
+# 3. Install Docker Compose V2
+sudo apt install docker-compose -y
+# OR (better) install compose plugin:
+sudo apt install docker-compose-v2 -y
+
+# 4. Verify Docker
+docker --version
+docker-compose --version
+
+# 5. Install Git
+sudo apt install git -y
+git --version
+
+# 6. Install Ansible (Must be 2.14+)
+sudo apt remove ansible -y
+sudo apt install software-properties-common -y
+sudo add-apt-repository --yes --update ppa:ansible/ansible
+sudo apt install ansible -y
+ansible --version   # Should show 2.14 or higher
+
+# 7. Install Node.js (for your Node app)
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt install -y nodejs
+node --version
+npm --version
+
+# 8. Install Python + pip (for monitoring scripts)
+sudo apt install python3 python3-pip -y
+
+# 9. VS Code Extensions (via command line)
+code --install-extension ms-azuretools.vscode-docker
+code --install-extension redhat.ansible
+code --install-extension ms-vscode-remote.remote-ssh
+
+☁️ PHASE 2: AWS CLI & IaC SETUP
+bash
+# 1. Install AWS CLI v2
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+aws --version
+
+# 2. Configure AWS (enter your keys)
+aws configure
+# Region: us-east-1 (or your preferred)
+# Output format: json
+
+# 3. Install Terraform (optional but recommended)
+wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update && sudo apt install terraform -y
+
+📁 PHASE 3: PROJECT DIRECTORY STRUCTURE
+Create your DevOps website project:
+
+bash
+mkdir ~/devops-website
+cd ~/devops-website
+
+# Create the skeleton
+mkdir -p {frontend,backend,ansible,terraform,scripts,docs,grafana}
+mkdir -p frontend/{css,js,images}
+mkdir -p backend/{routes,models,controllers}
+mkdir -p ansible/{playbooks,inventory,roles}
+mkdir -p terraform/{environments,modules}
+mkdir -p monitoring/{prometheus,grafana-provisioning}
+
+# Verify structure
+tree -L 2
+
+🐳 PHASE 4: CONTAINER FILES (Mandatory)
+Create these files in project root:
+
+1. Dockerfile (Node App):
+
+dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY backend/package*.json ./
+RUN npm ci --only=production
+COPY backend/ .
+EXPOSE 3000
+CMD ["node", "server.js"]
+2. docker-compose.yml (Local Dev):
+
+yaml
+version: '3.8'
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - node_app
+
+  node_app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: devops
+      POSTGRES_PASSWORD: devops123
+      POSTGRES_DB: devops_website
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./monitoring/grafana-provisioning:/etc/grafana/provisioning
+      - grafana_data:/var/lib/grafana
+
+volumes:
+  postgres_data:
+  grafana_data:
+
+🔧 PHASE 5: AWS INFRASTRUCTURE FILES (For Deployment)
+terraform/main.tf (Start simple):
+
+hcl
+provider "aws" {
+  region = "us-east-1"
+}
+
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
+  tags = { Name = "devops-website-vpc" }
+}
+
+# Add subnets, EC2, ALB here later
+✅ VERIFICATION CHECKLIST
+Run these checks:
+
+Component	Command	Expected
+Docker	docker run hello-world	Hello message
+Compose	docker-compose --version	v2.x+
+Ansible	ansible --version	≥2.14
+AWS CLI	aws s3 ls	No errors (buckets listed or empty)
+Node	node -e "console.log('ok')"	Prints 'ok'
+Git	git --version	Version shown
