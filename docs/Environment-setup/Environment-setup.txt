@@ -34,10 +34,10 @@ sudo add-apt-repository --yes --update ppa:ansible/ansible
 sudo apt install ansible -y
 ansible --version   # Should show 2.14 or higher
 
-# 7. Install Node.js (for your Node app)
-curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+# 7. Use Node.js 20 LTS instead of 18
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt install -y nodejs
-node --version
+node --version  # Should show v20.x
 npm --version
 
 # 8. Install Python + pip (for monitoring scripts)
