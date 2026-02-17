@@ -1,0 +1,23 @@
+version: "3.9"
+
+networks:
+  devops-network:
+
+services:
+  backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - "3000:3000"
+    networks:
+      - devops-network
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - devops-network
