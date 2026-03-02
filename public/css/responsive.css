@@ -1,0 +1,22 @@
+/* css/responsive.css */
+
+/* Navbar Responsive Adjustments */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* Hide links on small screens; add burger menu JS later */
+  }
+
+  .nav-inner {
+    padding: 0 1rem; /* Tighter padding for mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-logo {
+    font-size: 1.2rem; /* Smaller logo text */
+  }
+
+  .theme-toggle {
+    padding: 0.3rem 0.6rem; /* Compact toggle */
+  }
+}

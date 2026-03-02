@@ -1,0 +1,14 @@
+{
+  "name": "devops-portal",
+  "version": "1.0.0",
+  "description": "DevOps lifecycle implementation portal",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Vignesh",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevOps Portal — Live Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet" />
+    <!-- CSS files linked in recommended order -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/cards.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body>
+    <!-- Grid Overlay -->
+    <div class="grid-overlay"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- ====== NAVBAR ====== -->
+    <div id="navbar"></div>
+
+    <!-- ====== DASHBOARD HEADER ====== -->
+    <header class="page-header">
+        <div class="page-header-glow"></div>
+        <div class="container">
+            <div class="page-title">
+                <span>Live Monitoring</span> Dashboard
+            </div>
+            <p class="page-sub">
+                Real-time infrastructure observability powered by <span
+                    style="color:var(--accent);font-weight:500;">Prometheus</span> &amp; <span
+                    style="color:var(--accent2);font-weight:500;">Grafana</span>.
+            </p>
+            <div class="dash-meta">
+                <div class="meta-badge">
+                    <span class="label">Environment</span>
+                    <span>Production</span>
+                </div>
+                <div class="meta-badge">
+                    <span class="badge-dot dot-green"></span>
+                    <span class="label">Status</span>
+                    <span>All Systems Operational</span>
+                </div>
+                <div class="meta-badge">
+                    <span class="label">Last Refresh</span>
+                    <span id="lastRefreshTime">—</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ====== HEALTH SUMMARY CARDS ====== -->
+    <section class="health-section">
+        <div class="container">
+            <div class="section-label">⬡ Health Summary</div>
+            <div class="health-grid">
+
+                <!-- App Health -->
+                <div class="health-card">
+                    <div class="card-icon">🚀</div>
+                    <h3>App Health</h3>
+                    <div class="card-value val-green">Healthy</div>
+                    <div class="card-sub">All endpoints responding</div>
+                    <div class="status-indicator indicator-green">
+                        <span class="dot"></span> Operational
+                    </div>
+                </div>
+
+                <!-- CPU Usage -->
+                <div class="health-card">
+                    <div class="card-icon">🖥️</div>
+                    <h3>CPU Usage</h3>
+                    <div class="card-value val-cyan">12%</div>
+                    <div class="card-sub">Average across 4 nodes</div>
+                    <div class="status-indicator indicator-cyan">
+                        <span class="dot"></span> Optimized
+                    </div>
+                </div>
+
+                <!-- Memory Usage -->
+                <div class="health-card">
+                    <div class="card-icon">🧠</div>
+                    <h3>Memory Usage</h3>
+                    <div class="card-value val-orange">4.2GB</div>
+                    <div class="card-sub">65% of total capacity</div>
+                    <div class="status-indicator indicator-orange">
+                        <span class="dot"></span> Stable
+                    </div>
+                </div>
+
+                <!-- Uptime -->
+                <div class="health-card">
+                    <div class="card-icon">⏱️</div>
+                    <h3>Uptime</h3>
+                    <div class="card-value val-green">99.99%</div>
+                    <div class="card-sub">30-day rolling average</div>
+                    <div class="status-indicator indicator-green">
+                        <span class="dot"></span> Excellent
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== GRAFANA DASHBOARD EMBED ====== -->
+    <section>
+        <div class="container">
+            <div class="section-label">📊 Grafana Dashboard</div>
+
+            <div class="grafana-section">
+                <h2 style="font-family:'Bebas Neue',cursive;font-size:1.6rem;letter-spacing:0.05em;color:var(--text);">
+                    Infrastructure <span style="color:var(--accent);">Metrics</span>
+                </h2>
+
+                <div class="grafana-wrapper">
+                    <!-- Top bar -->
+                    <div class="grafana-topbar">
+                        <div class="grafana-title-area">
+                            <span class="grafana-icon">📈</span>
+                            <span>Grafana — Production Cluster</span>
+                        </div>
+                        <div class="grafana-actions">
+                            <div class="grafana-badge">
+                                <span class="dot"></span> Live
+                            </div>
+                            <button class="grafana-refresh-btn" id="refreshPanels">↻ Refresh</button>
+                        </div>
+                    </div>
+
+                    <!-- 2×2 Panel Grid (dummy iframe placeholders) -->
+                    <div class="grafana-panels">
+
+                        <!-- Panel 1: CPU Usage -->
+                        <div class="grafana-panel">
+                            <div class="panel-label">CPU Usage</div>
+                            <div class="panel-iframe-placeholder" id="panel-cpu">
+                                <div class="placeholder-icon">📊</div>
+                                <div class="placeholder-text">
+                                    <strong>CPU Usage</strong>
+                                    Real Grafana iframe goes here
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Panel 2: Memory Usage -->
+                        <div class="grafana-panel">
+                            <div class="panel-label">Memory Usage</div>
+                            <div class="panel-iframe-placeholder" id="panel-memory">
+                                <div class="placeholder-icon">🧠</div>
+                                <div class="placeholder-text">
+                                    <strong>Memory Usage</strong>
+                                    Real Grafana iframe goes here
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Panel 3: Disk I/O -->
+                        <div class="grafana-panel">
+                            <div class="panel-label">Disk I/O</div>
+                            <div class="panel-iframe-placeholder" id="panel-disk">
+                                <div class="placeholder-icon">💾</div>
+                                <div class="placeholder-text">
+                                    <strong>Disk I/O</strong>
+                                    Real Grafana iframe goes here
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Panel 4: Network -->
+                        <div class="grafana-panel">
+                            <div class="panel-label">Network Traffic</div>
+                            <div class="panel-iframe-placeholder" id="panel-network">
+                                <div class="placeholder-icon">🌐</div>
+                                <div class="placeholder-text">
+                                    <strong>Network Traffic</strong>
+                                    Real Grafana iframe goes here
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /grafana-panels -->
+                </div><!-- /grafana-wrapper -->
+            </div><!-- /grafana-section -->
+        </div>
+    </section>
+
+    <!-- ====== MONITORING INFO ====== -->
+    <section class="monitoring-section">
+        <div class="container">
+            <div class="section-label">🔍 Monitoring Info</div>
+            <div class="monitoring-grid">
+
+                <div class="monitoring-card">
+                    <div class="monitoring-icon">📡</div>
+                    <div class="monitoring-info">
+                        <h4>Metrics Source</h4>
+                        <div class="mval">Prometheus</div>
+                        <div class="msub">Scrape interval: 15s</div>
+                    </div>
+                </div>
+
+                <div class="monitoring-card">
+                    <div class="monitoring-icon">🏢</div>
+                    <div class="monitoring-info">
+                        <h4>Cluster Region</h4>
+                        <div class="mval">us-east-1</div>
+                        <div class="msub">AWS Infrastructure</div>
+                    </div>
+                </div>
+
+                <div class="monitoring-card">
+                    <div class="monitoring-icon">🔒</div>
+                    <div class="monitoring-info">
+                        <h4>SSL Status</h4>
+                        <div class="mval">Secure</div>
+                        <div class="msub">Auto-renewing certs</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== FOOTER ====== -->
+    <div id="footer"></div>
+
+    <!-- ====== JAVASCRIPT ====== -->
+    <script src="../js/main.js"></script>
+    <script>
+        /* ── Live Clock / Last Updated (Page Specific) ── */
+        function tick() {
+            const now = new Date();
+            const fmt = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const dateFmt = now.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' });
+
+            const refreshEl = document.getElementById('lastRefreshTime');
+            if (refreshEl) refreshEl.textContent = fmt;
+        }
+        tick();
+        setInterval(tick, 1000);
+
+        /* ── Refresh Button ── */
+        const refreshBtn = document.getElementById('refreshPanels');
+        if (refreshBtn) {
+            refreshBtn.addEventListener('click', function () {
+                this.textContent = '↻ Refreshing…';
+                setTimeout(() => {
+                    this.textContent = '↻ Refresh';
+                    tick();
+                }, 1200);
+            });
+        }
+    </script>
+</body>
+
+</html>

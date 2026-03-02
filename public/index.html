@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevOps Portal — Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet" />
+
+  <!-- CSS files linked in recommended order (base → layout → components → page-specific → responsive) -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+  <!-- Grid Overlay (core visual layer) -->
+  <div class="grid-overlay"></div>
+
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Navbar will be injected here -->
+  <div id="navbar"></div>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="container">
+      <h1 class="hero-title">
+        <span class="line1">AUTOMATE.</span>
+        <span class="line2">DEPLOY. SCALE.</span>
+        <span class="line3">End-to-End DevOps Infrastructure Platform</span>
+      </h1>
+      <p class="hero-sub">
+        From <span>code commit</span> to <span>production deployment</span> — fully automated CI/CD pipelines, container
+        orchestration, and real-time infrastructure monitoring built for modern teams.
+      </p>
+      <div class="hero-buttons">
+        <a href="#" class="btn-primary">
+          <span style="color: gold; font-size: 24px;">⚡</span> Dashboard
+        </a>
+        <a href="#" class="btn-secondary">
+          <span>🔁</span> Pipeline
+        </a>
+      </div>
+
+      <div class="header-badge">
+        <div class="badge-dot"></div>
+        <div class="badge-text">
+          Systems Operational <br>
+          <span class="badge-sub">live Last updated: 2 mins ago</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap">
+    <div class="ticker">
+      <span class="ticker-item"><span class="dot">▶</span>GITHUB PUSH DETECTED</span>
+      <span class="ticker-item"><span class="dot">▶</span>JENKINS BUILD #847 — SUCCESS</span>
+      <span class="ticker-item"><span class="dot">▶</span>DOCKER IMAGE PUSHED TO ECR</span>
+      <span class="ticker-item"><span class="dot">▶</span>EC2 AUTO-SCALING — 3 INSTANCES</span>
+      <span class="ticker-item"><span class="dot">▶</span>UPTIME: 99.9% — LAST 30 DAYS</span>
+      <span class="ticker-item"><span class="dot">▶</span>MONITORING: ALL GREEN</span>
+      <span class="ticker-item"><span class="dot">▶</span>DEPLOYMENT PIPELINE ACTIVE</span>
+      <span class="ticker-item"><span class="dot">▶</span>GITHUB PUSH DETECTED</span>
+      <span class="ticker-item"><span class="dot">▶</span>JENKINS BUILD #847 — SUCCESS</span>
+      <span class="ticker-item"><span class="dot">▶</span>DOCKER IMAGE PUSHED TO ECR</span>
+      <span class="ticker-item"><span class="dot">▶</span>EC2 AUTO-SCALING — 3 INSTANCES</span>
+      <span class="ticker-item"><span class="dot">▶</span>UPTIME: 99.9% — LAST 30 DAYS</span>
+      <span class="ticker-item"><span class="dot">▶</span>MONITORING: ALL GREEN</span>
+      <span class="ticker-item"><span class="dot">▶</span>DEPLOYMENT PIPELINE ACTIVE</span>
+    </div>
+  </div>
+
+  <!-- SYSTEM STATUS CARDS + ARCHITECTURE FLOW -->
+  <div class="container">
+    <div class="section-label">System Status</div>
+    <div class="status-grid">
+      <!-- App Status -->
+      <div class="status-card">
+        <div class="status-card-icon">🚀</div>
+        <h3>Application</h3>
+        <div class="value status-running">RUNNING</div>
+        <div class="sub">v2.4.1 · Node.js 20</div>
+        <div class="status-indicator">
+          <span class="dot"></span> Live
+        </div>
+      </div>
+      <!-- Last Build -->
+      <div class="status-card">
+        <div class="status-card-icon">🔨</div>
+        <h3>Last Deployment</h3>
+        <div class="value status-success">SUCCESS</div>
+        <div class="sub">Build #847 · 3 min ago</div>
+        <div class="status-indicator"
+          style="background:rgba(0,212,255,0.08);border-color:rgba(0,212,255,0.2);color:var(--accent);">
+          <span class="dot" style="background:var(--accent);"></span> Passed
+        </div>
+      </div>
+      <!-- Uptime -->
+      <div class="status-card">
+        <div class="status-card-icon">📈</div>
+        <h3>Uptime</h3>
+        <div class="value status-uptime">99.9%</div>
+        <div class="sub">Last 30 days · Zero downtime</div>
+        <div class="status-indicator"
+          style="background:rgba(255,107,53,0.08);border-color:rgba(255,107,53,0.2);color:var(--accent2);">
+          <span class="dot" style="background:var(--accent2);animation:none;opacity:1;"></span> Stable
+        </div>
+      </div>
+      <!-- Server -->
+      <div class="status-card">
+        <div class="status-card-icon">☁️</div>
+        <h3>Server</h3>
+        <div class="value status-server">AWS EC2</div>
+        <div class="sub">t3.medium · us-east-1</div>
+        <div class="status-indicator"
+          style="background:rgba(255,107,53,0.08);border-color:rgba(255,107,53,0.2);color:var(--accent2);">
+          <span class="dot" style="background:var(--accent2);"></span> Healthy
+        </div>
+      </div>
+    </div>
+
+    <!-- ARCHITECTURE FLOW -->
+    <div class="arch-section">
+      <div class="section-label">CI/CD Architecture Flow</div>
+      <div class="arch-flow">
+        <div class="arch-node">
+          <div class="node-ping"></div>
+          <div class="arch-icon">🐙</div>
+          <div class="arch-label">GitHub</div>
+          <div class="arch-sublabel">Source Control</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node">
+          <div class="arch-icon">⚙️</div>
+          <div class="arch-label">Jenkins</div>
+          <div class="arch-sublabel">CI Server</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node">
+          <div class="arch-icon">🐳</div>
+          <div class="arch-label">Docker</div>
+          <div class="arch-sublabel">Containerize</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node">
+          <div class="arch-icon">☁️</div>
+          <div class="arch-label">AWS EC2</div>
+          <div class="arch-sublabel">Deploy</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node">
+          <div class="arch-icon">📊</div>
+          <div class="arch-label">Monitoring</div>
+          <div class="arch-sublabel">Prometheus</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer will be injected here -->
+  <div id="footer"></div>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>
