@@ -31,3 +31,4 @@ Prometheus metrics collection
 Grafana monitoring dashboard
 Selenium automated testing in CI pipeline
 
+connection test !
