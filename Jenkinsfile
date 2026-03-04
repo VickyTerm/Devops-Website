@@ -54,6 +54,27 @@ pipeline {
                 '''
             }
         }
+
+        stage('Deploy to EC2') {
+            steps {
+                sshagent(['ec2-ssh']) {
+                    sh '''
+                    ssh -o StrictHostKeyChecking=no ubuntu@13.127.36.148 << EOF
+
+                    cd Devops-Website
+
+                    docker stop devops-portal || true
+                    docker rm devops-portal || true
+
+                    docker build -t devops-portal .
+
+                    docker run -d -p 3000:3000 --name devops-portal devops-portal
+
+                    EOF
+                    '''
+                }
+            }
+        }
     }
 
     post {
