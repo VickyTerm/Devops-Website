@@ -1,20 +1,28 @@
-# 1️⃣ Base image
-FROM node:18-alpine
+# =============================================
+# Production-ready Node.js Dockerfile
+# =============================================
 
-# 2️⃣ Create app directory
+FROM node:22-alpine
+
+# Create app directory
 WORKDIR /app
 
-# 3️⃣ Copy dependency files
+# Copy only dependency files first (best layer caching)
 COPY package*.json ./
 
-# 4️⃣ Install dependencies
-RUN npm install --production
+# Install dependencies with modern, reproducible command
+# --omit=dev replaces the deprecated --production
+RUN npm ci --omit=dev && npm cache clean --force
 
-# 5️⃣ Copy application code
+# Copy the rest of the application code
 COPY . .
 
-# 6️⃣ Expose application port
+# Security: Change ownership and run as non-root user
+RUN chown -R node:node /app
+USER node
+
+# Expose port
 EXPOSE 3000
 
-# 7️⃣ Start application
+# Start the app
 CMD ["node", "app.js"]
