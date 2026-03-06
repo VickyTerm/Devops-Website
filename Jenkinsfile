@@ -34,13 +34,13 @@ pipeline {
         stage('Deploy to EC2') {
             steps {
                 sshagent(['ec2-ssh']) {
-                    sh """
-                    ssh -o StrictHostKeyChecking=no ${EC2_HOST} \
-                      'docker pull ${IMAGE_NAME}:${IMAGE_TAG} && \
-                       (docker stop ${CONTAINER_NAME} || true) && \
-                       (docker rm ${CONTAINER_NAME} || true) && \
-                       docker run -d -p ${PORT}:3000 --name ${CONTAINER_NAME} ${IMAGE_NAME}:${IMAGE_TAG}'
-                    """
+                    sh '''
+                    ssh -o StrictHostKeyChecking=no ubuntu@16.112.131.103 \
+                      "docker stop devops-portal || true && \
+                       docker rm devops-portal || true && \
+                       docker pull vickytricky/devops-portal:latest && \
+                       docker run -d -p 3000:3000 --name devops-portal vickytricky/devops-portal:latest"
+                    '''
                 }
             }
         }
