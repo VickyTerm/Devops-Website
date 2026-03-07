@@ -1,12 +1,12 @@
 pipeline {
     agent any
     environment {
-        APP_NAME       = "devops-portal"
-        IMAGE_NAME     = "vickytricky/devops-portal"
-        IMAGE_TAG      = "latest"
+        APP_NAME = "devops-portal"
+        IMAGE_NAME = "vickytricky/devops-portal"
+        IMAGE_TAG = "latest"
         CONTAINER_NAME = "devops-portal"
-        PORT           = "3000"
-        EC2_HOST       = "ubuntu@15.206.72.49"
+        PORT = "3000"
+        EC2_HOST = "ubuntu@15.206.72.49"   // ← UPDATED with your current IP
     }
     stages {
         stage('Checkout Source') {
@@ -34,13 +34,14 @@ pipeline {
         stage('Deploy to EC2') {
             steps {
                 sshagent(['ec2-ssh']) {
-                    sh '''
-                    ssh -o StrictHostKeyChecking=no ubuntu@16.112.131.103 \
-                      "docker stop devops-portal || true && \
-                       docker rm devops-portal || true && \
-                       docker pull vickytricky/devops-portal:latest && \
-                       docker run -d -p 3000:3000 --name devops-portal vickytricky/devops-portal:latest"
-                    '''
+                    sh """
+                    ssh -o StrictHostKeyChecking=no ${EC2_HOST} '
+                      docker stop ${CONTAINER_NAME} || true && 
+                      docker rm ${CONTAINER_NAME} || true && 
+                      docker pull ${IMAGE_NAME}:${IMAGE_TAG} && 
+                      docker run -d -p ${PORT}:${PORT} --name ${CONTAINER_NAME} ${IMAGE_NAME}:${IMAGE_TAG}
+                    '
+                    """
                 }
             }
         }
