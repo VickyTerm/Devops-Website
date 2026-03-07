@@ -1,16 +1,20 @@
-FROM node:22-alpine
+# 1️⃣ Base image
+FROM node:18-alpine
 
+# 2️⃣ Create app directory
 WORKDIR /app
 
+# 3️⃣ Copy dependency files
 COPY package*.json ./
 
-RUN npm ci --omit=dev && npm cache clean --force
+# 4️⃣ Install dependencies
+RUN npm install --production
 
+# 5️⃣ Copy application code
 COPY . .
 
-RUN chown -R node:node /app
-USER node
-
+# 6️⃣ Expose application port
 EXPOSE 3000
 
+# 7️⃣ Start application
 CMD ["node", "app.js"]

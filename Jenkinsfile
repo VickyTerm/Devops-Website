@@ -6,7 +6,7 @@ pipeline {
         IMAGE_TAG      = "latest"
         CONTAINER_NAME = "devops-portal"
         PORT           = "3000"
-        EC2_HOST       = "ubuntu@16.112.131.103"
+        EC2_HOST       = "ubuntu@15.206.72.49"
     }
     stages {
         stage('Checkout Source') {
