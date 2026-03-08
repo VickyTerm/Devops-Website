@@ -1,18 +1,16 @@
 pipeline {
     agent any
-
-   environment {
-    APP_NAME       = "devops-portal"
-    IMAGE_NAME     = "vickyterm/devops-portal"
-    IMAGE_TAG      = "${BUILD_NUMBER}"
-    CONTAINER_NAME = "devops-portal"
-    PORT           = "3000"
-    EC2_HOST       = "ubuntu@13.233.206.198"
-    DOCKER_BUILDKIT = "0"   //  THIS LINE - disables BuildKit
-}
+    environment {
+        APP_NAME        = "devops-portal"
+        IMAGE_NAME      = "vickyterm/devops-portal"
+        IMAGE_TAG       = "${BUILD_NUMBER}"
+        CONTAINER_NAME  = "devops-portal"
+        PORT            = "3000"
+        EC2_HOST        = "ubuntu@13.233.206.198"
+        DOCKER_BUILDKIT = "0"
+    }
 
     stages {
-
         stage('Checkout Source') {
             steps {
                 git branch: 'main', url: 'https://github.com/VickyTerm/Devops-Website.git'
@@ -28,7 +26,7 @@ pipeline {
         stage('Push to DockerHub') {
             steps {
                 withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-creds',
+                    credentialsId: 'dockerhub-credentials',
                     usernameVariable: 'USER',
                     passwordVariable: 'PASS'
                 )]) {
@@ -46,26 +44,14 @@ pipeline {
                 sshagent(['ec2-ssh']) {
                     sh """
                         ssh -o StrictHostKeyChecking=no ${EC2_HOST} '
-                            set -e
-
-                            echo ">>> Logging into DockerHub..."
-                            echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin || true
-
-                            echo ">>> Stopping old container..."
                             docker stop ${CONTAINER_NAME} 2>/dev/null || true
                             docker rm   ${CONTAINER_NAME} 2>/dev/null || true
-
-                            echo ">>> Pulling latest image..."
                             docker pull ${IMAGE_NAME}:${IMAGE_TAG}
-
-                            echo ">>> Starting new container..."
-                            docker run -d \\
-                                --name ${CONTAINER_NAME} \\
-                                --restart unless-stopped \\
-                                -p ${PORT}:${PORT} \\
+                            docker run -d \
+                                --name ${CONTAINER_NAME} \
+                                --restart unless-stopped \
+                                -p ${PORT}:${PORT} \
                                 ${IMAGE_NAME}:${IMAGE_TAG}
-
-                            echo ">>> Container status:"
                             docker ps | grep ${CONTAINER_NAME}
                         '
                     """
@@ -83,7 +69,6 @@ pipeline {
             echo '❌ Pipeline failed. Check logs above.'
         }
         always {
-            // Clean up local Docker images to save disk space
             sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG} || true"
         }
     }
