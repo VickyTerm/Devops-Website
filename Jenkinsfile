@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         APP_NAME      = "devops-portal"
-        IMAGE_NAME    = "vickytricky/devops-portal"
+        IMAGE_NAME    = "vickyterm/devops-portal"
         IMAGE_TAG     = "${BUILD_NUMBER}"   // ✅ Better than 'latest' - unique per build
         CONTAINER_NAME = "devops-portal"
         PORT          = "3000"
