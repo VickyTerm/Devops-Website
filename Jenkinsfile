@@ -6,7 +6,7 @@ pipeline {
         IMAGE_TAG = "latest"
         CONTAINER_NAME = "devops-portal"
         PORT = "3000"
-        EC2_HOST = "ubuntu@13.233.206.198"   // ← your EC2
+        EC2_HOST = "ubuntu@13.233.206.198"
     }
 
     stages {
@@ -21,11 +21,17 @@ pipeline {
                 sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
             }
         }
-        
+
+        // ✅ FIXED PUSH STAGE (works without extra plugins)
         stage('Push to DockerHub') {
             steps {
-                withDockerRegistry(credentialsId: 'dockerhub-creds', url: '') {
-                    sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds',
+                                                  usernameVariable: 'USER',
+                                                  passwordVariable: 'PASS')]) {
+                    sh """
+                    echo \$PASS | docker login -u \$USER --password-stdin
+                    docker push ${IMAGE_NAME}:${IMAGE_TAG}
+                    """
                 }
             }
         }
