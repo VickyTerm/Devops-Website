@@ -17,12 +17,20 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
-            }
+    stage('Build Docker Image') {
+      steps {
+        withCredentials([usernamePassword(
+            credentialsId: 'dockerhub-credentials',
+            usernameVariable: 'USER',
+            passwordVariable: 'PASS'
+        )]) {
+            sh """
+                echo "\$PASS" | docker login -u "\$USER" --password-stdin
+                docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
+            """
         }
-
+    }
+}
         stage('Push to DockerHub') {
             steps {
                 withCredentials([usernamePassword(
