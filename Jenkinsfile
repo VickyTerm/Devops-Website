@@ -6,7 +6,7 @@ pipeline {
         IMAGE_TAG       = "${BUILD_NUMBER}"
         CONTAINER_NAME  = "devops-portal"
         PORT            = "3000"
-        EC2_HOST        = "ubuntu@13.233.206.198"
+        EC2_HOST = "ubuntu@35.154.108.227"
         DOCKER_BUILDKIT = "0"
     }
 
