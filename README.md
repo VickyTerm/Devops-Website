@@ -18,6 +18,8 @@ Developer → GitHub → Jenkins CI/CD → Docker Container → AWS EC2 → Ngin
 
 ## CI/CD Pipeline
 
+<img width="990" height="862" alt="Screenshot from 2026-03-09 09-39-36" src="https://github.com/user-attachments/assets/b6866dbd-7763-444c-bedd-2694fcd6b194" />
+
 1. Developer pushes code to GitHub
 2. GitHub webhook triggers Jenkins
 3. Jenkins pulls the latest source code
