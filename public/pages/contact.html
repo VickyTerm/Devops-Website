@@ -1,8 +1,297 @@
-<html>
-  <head>
-      <title>contact</title>
-  </head>  
-  <body>
-    <h1>hello</h1>
-  </body>
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevOps Portal — Contact Us</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet" />
+    <!-- CSS files linked in recommended order -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/cards.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <style>
+        /* Contact Page Specific Styling */
+        .contact-header {
+            padding: 120px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-header-glow {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 300px;
+            background: radial-gradient(ellipse, rgba(0, 212, 255, 0.08), transparent 70%);
+            pointer-events: none;
+        }
+
+        .contact-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: clamp(3rem, 6vw, 5rem);
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            letter-spacing: 0.02em;
+        }
+
+        .contact-title span {
+            color: var(--accent);
+        }
+
+        .contact-sub {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 1.1rem;
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto 100px;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 212, 255, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(0, 212, 255, 0.05), transparent 60%);
+            pointer-events: none;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.1);
+        }
+
+        .submit-area {
+            margin-top: 2.5rem;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: linear-gradient(135deg, var(--accent), #00a0dc);
+            color: #050a0e;
+            padding: 1rem 2.5rem;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            font-family: 'Space Mono', monospace;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-submit:hover {
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .contact-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .info-item h4 {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent2);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .info-item p {
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+
+            .contact-card {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Grid Overlay -->
+    <div class="grid-overlay"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- NAVBAR -->
+    <div id="navbar"></div>
+
+    <header class="contact-header">
+        <div class="contact-header-glow"></div>
+        <div class="container">
+            <h1 class="contact-title">GET IN <span>TOUCH</span></h1>
+            <p class="contact-sub">
+                Have questions about our DevOps infrastructure or automation services?
+                Our team of engineers is ready to help you scale.
+            </p>
+        </div>
+    </header>
+
+    <main class="contact-container">
+        <div class="contact-card">
+            <div class="section-label">Transmit Message</div>
+            <form class="contact-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">D Vignesh</label>
+                        <input type="text" id="name" placeholder="John Doe" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">vignesh.s.devop@gmail.com</label>
+                        <input type="email" id="email" placeholder="john@company.com" required />
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" placeholder="Infrastructure Inquiry" required />
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="5" placeholder="Tell us about your project..." required></textarea>
+                    </div>
+                </div>
+                <div class="submit-area">
+                    <button type="submit" class="btn-submit">
+                        <span>🚀</span> DEPLOY MESSAGE
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="contact-info-grid">
+            <div class="info-item">
+                <h4>System Location</h4>
+                <p>Tech Hub, Silicon Valley, CA</p>
+            </div>
+            <div class="info-item">
+                <h4>Main Frame</h4>
+                <p>support@devops-portal.io</p>
+            </div>
+            <div class="info-item">
+                <h4>Uptime Support</h4>
+                <p>24/7 Monitoring Available</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <div id="footer"></div>
+
+    <!-- JAVASCRIPT -->
+    <script src="../js/main.js"></script>
+    <script>
+        // Form Interactivity
+        document.querySelector('.contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('.btn-submit');
+            const originalContent = btn.innerHTML;
+
+            btn.innerHTML = '<span>⚡</span> TRANSMITTING...';
+            btn.style.opacity = '0.7';
+            btn.style.pointerEvents = 'none';
+
+            setTimeout(() => {
+                btn.innerHTML = '<span>✅</span> MESSAGE DELIVERED';
+                btn.style.background = 'linear-gradient(135deg, var(--accent3), #1a8f00)';
+                e.target.reset();
+
+                setTimeout(() => {
+                    btn.innerHTML = originalContent;
+                    btn.style.background = '';
+                    btn.style.opacity = '';
+                    btn.style.pointerEvents = '';
+                }, 3000);
+            }, 1500);
+        });
+    </script>
+</body>
+
 </html>
