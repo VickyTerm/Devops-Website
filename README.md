@@ -1,34 +1,53 @@
-DevOps Project Architecture
+# DevOps CI/CD Pipeline Project
 
-This project demonstrates a complete DevOps workflow for deploying and managing a Node.js application using modern DevOps tools and practices.
+This project demonstrates a complete DevOps lifecycle for deploying a Node.js web application using modern DevOps tools and cloud infrastructure.
 
-System Architecture
+## Project Overview
 
-Developer pushes code to GitHub.
-Jenkins detects changes and triggers a CI/CD pipeline.
-The pipeline builds a Docker image and deploys the container to an AWS EC2 instance.
-The application becomes accessible to user through the server's public IP address.
+The application is containerized using Docker and deployed to an AWS EC2 instance. Jenkins automates the build and deployment pipeline, ensuring that every code update can be automatically deployed.
 
-Architecture Flow
+The system uses Nginx as a reverse proxy to expose the application through port 80.
 
-Developer --> GitHub --> Jenkins CI/CD --> Docker Build --> AWS EC2 --> Web Application.
+## Live Demo
 
-Current Features
+http://13.127.36.148
 
-Node.js DevOps themed web application
-Docker containerized deployment
-jenkins CI/CD pipeline automation
-Health monitoring endpoint /health
-AWS EC2 cloud deployment
-Modular frontend structure (components)
+## Architecture
 
-Upcoming Improvements
+Developer → GitHub → Jenkins CI/CD → Docker Container → AWS EC2 → Nginx Reverse Proxy → Users
 
-Nginx reverse proxy for port 80 access
-Domain name configuration
-HTTPS with SSL (Let's Encrypt)
-Prometheus metrics collection
-Grafana monitoring dashboard
-Selenium automated testing in CI pipeline
+## CI/CD Pipeline
 
-connection test !
+1. Developer pushes code to GitHub
+2. GitHub webhook triggers Jenkins
+3. Jenkins pulls the latest source code
+4. Jenkins builds the Docker image
+5. Jenkins deploys the container to EC2
+6. Nginx serves the updated application
+
+## Technologies Used
+
+* Node.js
+* Docker
+* Jenkins
+* AWS EC2
+* Nginx
+* GitHub
+* Linux
+
+## Project Structure
+
+app.js – main Node.js application
+Dockerfile – container build configuration
+Jenkinsfile – CI/CD pipeline definition
+public/ – frontend UI
+routes/ – application routes
+monitoring/ – monitoring configurations
+
+## Future Improvements
+
+* Custom domain integration
+* HTTPS with Let's Encrypt
+* Prometheus metrics collection
+* Grafana monitoring dashboard
+* Automated Selenium testing
