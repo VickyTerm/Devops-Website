@@ -27,6 +27,34 @@ Developer → GitHub → Jenkins CI/CD → Docker Container → AWS EC2 → Ngin
 5. Jenkins deploys the container to EC2
 6. Nginx serves the updated application
 
+Developer
+   │
+   │ push code
+   ▼
+GitHub Repository
+   │
+   │ webhook trigger
+   ▼
+Jenkins CI/CD Pipeline
+   │
+   ├── Checkout Source
+   ├── Build Docker Image
+   ├── Stop Old Container
+   ├── Run New Container
+   └── Health Check
+   │
+   ▼
+Deploy to AWS EC2
+   │
+   ▼
+Docker Container
+   │
+   ▼
+Nginx Reverse Proxy
+   │
+   ▼
+Users access website
+
 ## Technologies Used
 
 * Node.js
