@@ -1,12 +1,311 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevOps Portal — About</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet" />
+
+    <!-- Shared CSS files -->
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/cards.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+
+    <style>
+        /* Page-specific Styles */
+        .hero {
+            padding: 140px 0 80px;
+            overflow: hidden;
+        }
+
+        .lifecycle-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            flex-wrap: wrap;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            position: relative;
+            margin-top: 2rem;
+        }
+
+        .lifecycle-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: .6rem;
+            padding: 1.6rem 1.8rem;
+            border-radius: 14px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            min-width: 110px;
+            transition: all .35s;
+        }
+
+        .lifecycle-node:hover {
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .lifecycle-arrow {
+            color: var(--border);
+            font-size: 1.6rem;
+            padding: 0 .8rem;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.2rem;
+            margin-top: 2rem;
+        }
+
+        .tool-card {
+            text-align: center;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.8rem;
+            transition: all .3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent);
+        }
+
+        .tool-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-project-card {
+            margin-top: 5rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>About</h1>
-    
+    <!-- Grid Overlay -->
+    <div class="grid-overlay"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- Navbar -->
+    <div id="navbar"></div>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-glow"></div>
+        <div class="container">
+            <div class="section-label" style="justify-content:center">WELCOME TO THE FUTURE OF SOFTWARE DELIVERY</div>
+            <h1 class="hero-title">
+                <span class="line1">DevOps is</span>
+                <span class="line2">not a tool.</span>
+                <span class="line3">It’s a culture.</span>
+            </h1>
+            <p class="hero-sub">
+                This portal is your complete learning + demo environment to master modern DevOps practices — from code
+                to production in minutes.
+            </p>
+        </div>
+    </section>
+
+    <!-- WHAT IS DEVOPS -->
+    <div class="container">
+        <div class="section-label">What is DevOps?</div>
+        <p
+            style="max-width:800px;margin:0 auto 3rem;font-size:1.05rem;color:var(--muted);text-align:center;line-height:1.8">
+            DevOps is the combination of <strong>development</strong> and <strong>operations</strong> — a set of
+            practices that brings teams together to deliver software faster, safer, and more reliably through automation
+            and collaboration.
+        </p>
+
+        <div class="status-grid">
+            <div class="status-card">
+                <div class="status-card-icon">⚡</div>
+                <h3>Automation</h3>
+                <p class="sub">Replace manual tasks with scripts and pipelines</p>
+            </div>
+            <div class="status-card">
+                <div class="status-card-icon">🔄</div>
+                <h3>Continuous Integration</h3>
+                <p class="sub">Developers merge code frequently into a shared repository</p>
+            </div>
+            <div class="status-card">
+                <div class="status-card-icon">🚀</div>
+                <h3>Continuous Deployment</h3>
+                <p class="sub">Every change is automatically deployed to production (safely)</p>
+            </div>
+            <div class="status-card">
+                <div class="status-card-icon">📡</div>
+                <h3>Monitoring</h3>
+                <p class="sub">Real-time visibility into applications and infrastructure</p>
+            </div>
+            <div class="status-card">
+                <div class="status-card-icon">🏗️</div>
+                <h3>Infrastructure as Code</h3>
+                <p class="sub">Define and manage servers with version-controlled code</p>
+            </div>
+            <div class="status-card">
+                <div class="status-card-icon">🤝</div>
+                <h3>Collaboration</h3>
+                <p class="sub">Break down silos between Dev and Ops teams</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CORE PRINCIPLES -->
+    <div class="container" style="margin-top:5rem">
+        <div class="section-label">DevOps Core Principles</div>
+        <div class="status-grid">
+            <div class="status-card">
+                <div class="status-card-icon">🔁</div>
+                <h3>Continuous Integration</h3>
+                <p class="sub">Code is integrated and tested multiple times a day</p>
+            </div>
+            <div class="status-card">
+                <div class="status-card-icon">📦</div>
+                <h3>Continuous Delivery</h3>
+                <p class="sub">Software is always in a releasable state</p>
+            </div>
+            <div class="status-card">
+                <div class="status-card-icon">🤖</div>
+                <h3>Automation First</h3>
+                <p class="sub">Anything that can be automated, should be</p>
+            </div>
+            <div class="status-card">
+                <div class="status-card-icon">📊</div>
+                <h3>Continuous Monitoring</h3>
+                <p class="sub">Observe everything — metrics, logs, traces</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- DEVOPS LIFECYCLE -->
+    <div class="container" style="margin-top:5rem">
+        <div class="section-label">The DevOps Lifecycle</div>
+        <div class="lifecycle-flow">
+            <div class="lifecycle-node"><span style="font-size:2rem">📋</span><span
+                    style="font-family:'Space Mono',monospace;font-size:.75rem">PLAN</span></div>
+            <div class="lifecycle-arrow">→</div>
+            <div class="lifecycle-node"><span style="font-size:2rem">💻</span><span
+                    style="font-family:'Space Mono',monospace;font-size:.75rem">CODE</span></div>
+            <div class="lifecycle-arrow">→</div>
+            <div class="lifecycle-node"><span style="font-size:2rem">🔨</span><span
+                    style="font-family:'Space Mono',monospace;font-size:.75rem">BUILD</span></div>
+            <div class="lifecycle-arrow">→</div>
+            <div class="lifecycle-node"><span style="font-size:2rem">🧪</span><span
+                    style="font-family:'Space Mono',monospace;font-size:.75rem">TEST</span></div>
+            <div class="lifecycle-arrow">→</div>
+            <div class="lifecycle-node"><span style="font-size:2rem">📦</span><span
+                    style="font-family:'Space Mono',monospace;font-size:.75rem">RELEASE</span></div>
+            <div class="lifecycle-arrow">→</div>
+            <div class="lifecycle-node"><span style="font-size:2rem">🚀</span><span
+                    style="font-family:'Space Mono',monospace;font-size:.75rem">DEPLOY</span></div>
+            <div class="lifecycle-arrow">→</div>
+            <div class="lifecycle-node"><span style="font-size:2rem">🔧</span><span
+                    style="font-family:'Space Mono',monospace;font-size:.75rem">OPERATE</span></div>
+            <div class="lifecycle-arrow">→</div>
+            <div class="lifecycle-node"><span style="font-size:2rem">📡</span><span
+                    style="font-family:'Space Mono',monospace;font-size:.75rem">MONITOR</span></div>
+        </div>
+        <p
+            style="text-align:center;margin-top:2rem;font-size:.9rem;color:var(--muted);font-family:'Space Mono',monospace">
+            This entire website is built using the exact same lifecycle (GitHub → Jenkins → Docker → AWS EC2 +
+            Prometheus/Grafana)
+        </p>
+    </div>
+
+    <!-- TOOLS USED -->
+    <div class="container" style="margin-top:5rem">
+        <div class="section-label">Tools Used in DevOps</div>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <div class="tool-icon">🐙</div><strong>Git + GitHub</strong>
+                <p class="sub">Source control &amp; CI triggers</p>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon">🔨</div><strong>Jenkins</strong>
+                <p class="sub">CI/CD automation server</p>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon">🐳</div><strong>Docker</strong>
+                <p class="sub">Containerization</p>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon">☁️</div><strong>AWS EC2</strong>
+                <p class="sub">Cloud deployment</p>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon">📊</div><strong>Prometheus</strong>
+                <p class="sub">Monitoring &amp; metrics</p>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon">📈</div><strong>Grafana</strong>
+                <p class="sub">Beautiful dashboards</p>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon">🛠️</div><strong>Terraform</strong>
+                <p class="sub">Infrastructure as Code</p>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon">⚙️</div><strong>Nginx</strong>
+                <p class="sub">Reverse proxy &amp; load balancer</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT THIS PROJECT -->
+    <div class="container">
+        <div class="about-project-card">
+            <div class="section-label">About This Project</div>
+            <p style="font-size:1.05rem;line-height:1.8;color:var(--muted);max-width:880px">
+                This DevOps Portal is a fully functional demonstration project built to showcase a complete end-to-end
+                DevOps workflow.
+                A static website (this one!) is containerized with Docker, pushed to AWS ECR, and deployed automatically
+                on an EC2 instance via Jenkins CI/CD whenever code is pushed to GitHub.
+            </p>
+            <p style="margin-top:1rem;font-size:1.05rem;line-height:1.8;color:var(--muted)">
+                The site itself is your interactive learning hub — with live pipeline visualization, real-time
+                dashboards, and architecture diagrams. Perfect for portfolios and interviews.
+            </p>
+        </div>
+    </div>
+
+    <!-- CALL TO ACTION -->
+    <div class="container" style="margin:5rem auto 4rem;text-align:center">
+        <h2 style="font-family:'Bebas Neue',cursive;font-size:2.8rem;letter-spacing:.03em;margin-bottom:1rem">Ready to
+            level up?</h2>
+        <p style="color:var(--muted);font-size:1.1rem;max-width:500px;margin:0 auto 2.5rem">Start exploring the full
+            DevOps journey right now.</p>
+
+        <div class="hero-buttons">
+            <a href="/pages/workflow.html" class="btn-primary">Explore Workflow →</a>
+            <a href="/pages/cicd.html" class="btn-secondary">View Live CI/CD</a>
+            <a href="/pages/dashboard.html" class="btn-secondary">Open Dashboard</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <script src="/js/main.js"></script>
 </body>
-</html> 
+
+</html>
