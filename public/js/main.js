@@ -7,7 +7,11 @@ async function loadComponent(id, file) {
         if (!res.ok) throw new Error(`HTTP ${res.status} — ${file} not found`);
         document.getElementById(id).innerHTML = await res.text();
         console.log(`[DevOps Portal] ✅ Component loaded: #${id} ← ${file}`);
-        if (id === 'navbar') bindThemeToggle(); // Re-bind after load
+
+        if (id === 'navbar') {
+            bindThemeToggle(); // Re-bind after load
+            setActiveLink();   // Highlight current page
+        }
     } catch (err) {
         console.warn(`[DevOps Portal] ⚠️ Using inline fallback for #${id} (${err.message})`);
     }
@@ -69,10 +73,24 @@ function initCustomCursor() {
     });
 }
 
+// Active Link Detection
+function setActiveLink() {
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('.nav-links a');
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        const href = link.getAttribute('href');
+        // Handle root, absolute paths, and relative paths
+        if (currentPath === href || (currentPath === '/' && href === '/') || (href !== '/' && currentPath.endsWith(href))) {
+            link.classList.add('active');
+        }
+    });
+}
+
 // Initialization
 document.addEventListener('DOMContentLoaded', () => {
     loadComponent("navbar", "/components/navbar.html");
     loadComponent("footer", "/components/footer.html");
-    bindThemeToggle();
+    bindThemeToggle(); // Initial binding for safe measure
     initCustomCursor();
 });
