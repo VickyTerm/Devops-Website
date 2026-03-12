@@ -1,0 +1,31 @@
+name: Deploy DevOps Website
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Build Docker Image
+      run: docker build -t devops-portal .
+
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: 13.233.241.37
+        username: ubuntu
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          docker stop devops-portal || true
+          docker rm devops-portal || true
+          docker build -t devops-portal .
+          docker run -d -p 3000:3000 --name devops-portal devops-portal

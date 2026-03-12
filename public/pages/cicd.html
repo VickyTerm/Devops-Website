@@ -1380,10 +1380,481 @@
         gap: 0.8rem;
       }
     }
+
+    /* ====== WEBHOOK SECTION ====== */
+    .webhook-section {
+      margin: 0 0 5rem;
+      animation: fadeSlideUp 1s 0.7s ease both;
+    }
+
+    .webhook-intro {
+      max-width: 720px;
+      margin: 0 auto 2.5rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+
+    .webhook-intro strong {
+      color: var(--accent);
+    }
+
+    .webhook-flow {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .wh-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.7rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.6rem 1.8rem;
+      min-width: 130px;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wh-node::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .wh-node:hover {
+      border-color: rgba(0, 212, 255, 0.4);
+      transform: translateY(-6px) scale(1.04);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35), 0 0 25px rgba(0, 212, 255, 0.1);
+    }
+
+    .wh-node:hover::after {
+      transform: scaleX(1);
+    }
+
+    .wh-icon {
+      font-size: 2rem;
+      filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.25));
+    }
+
+    .wh-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .wh-sub {
+      font-size: 0.62rem;
+      font-family: 'Space Mono', monospace;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .wh-arrow {
+      display: flex;
+      align-items: center;
+      padding: 0 0.6rem;
+      color: rgba(0, 212, 255, 0.35);
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      align-self: center;
+    }
+
+    .webhook-events {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .wh-event-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.6rem 1.8rem;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wh-event-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 100% 0%, rgba(0, 212, 255, 0.08), transparent 65%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .wh-event-card:hover {
+      border-color: rgba(0, 212, 255, 0.35);
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3), 0 0 25px rgba(0, 212, 255, 0.07);
+    }
+
+    .wh-event-card:hover::before {
+      opacity: 1;
+    }
+
+    .wh-event-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .wh-event-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      padding: 0.2rem 0.65rem;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-weight: 700;
+    }
+
+    .wh-badge-push {
+      background: rgba(57, 255, 20, 0.1);
+      color: var(--accent3);
+      border: 1px solid rgba(57, 255, 20, 0.25);
+    }
+
+    .wh-badge-pr {
+      background: rgba(255, 107, 53, 0.1);
+      color: var(--accent2);
+      border: 1px solid rgba(255, 107, 53, 0.25);
+    }
+
+    .wh-badge-tag {
+      background: rgba(0, 212, 255, 0.1);
+      color: var(--accent);
+      border: 1px solid rgba(0, 212, 255, 0.25);
+    }
+
+    .wh-event-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .wh-event-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.65;
+      position: relative;
+      z-index: 2;
+    }
+
+    .wh-payload-box {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-top: 1rem;
+      overflow-x: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .wh-payload-box .pl-key {
+      color: var(--accent);
+    }
+
+    .wh-payload-box .pl-str {
+      color: var(--accent3);
+    }
+
+    .wh-payload-box .pl-num {
+      color: var(--accent2);
+    }
+
+    .wh-setup-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .wh-setup-left {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .wh-setup-left h4 {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.6rem;
+    }
+
+    .wh-setup-left p {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    .wh-setup-url {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      background: rgba(0, 212, 255, 0.07);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      border-radius: 8px;
+      padding: 0.55rem 1rem;
+      margin-top: 0.8rem;
+      display: inline-block;
+      word-break: break-all;
+      transition: background 0.3s;
+    }
+
+    .wh-setup-url:hover {
+      background: rgba(0, 212, 255, 0.13);
+    }
+
+    .wh-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(57, 255, 20, 0.08);
+      border: 1px solid rgba(57, 255, 20, 0.25);
+      border-radius: 100px;
+      padding: 0.45rem 1.1rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--accent3);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      flex-shrink: 0;
+    }
+
+    .wh-status-pill .dot {
+      width: 7px;
+      height: 7px;
+      background: var(--accent3);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    /* ====== SUCCESS POPUP ====== */
+    #successPopupOverlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9990;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: rgba(5, 10, 14, 0.55);
+      opacity: 0;
+      animation: overlayIn 0.6s 0.3s ease forwards;
+    }
+
+    #successPopupOverlay.dismissing {
+      animation: overlayOut 0.8s ease forwards;
+    }
+
+    @keyframes overlayIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes overlayOut {
+      to {
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+
+    .success-popup {
+      background: var(--surface);
+      border: 1px solid rgba(57, 255, 20, 0.3);
+      border-radius: 24px;
+      padding: 3rem 3.5rem;
+      max-width: 480px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 60px rgba(57, 255, 20, 0.08);
+      transform: scale(0.85) translateY(20px);
+      opacity: 0;
+      animation: popupIn 0.6s 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .success-popup.dismissing {
+      animation: popupOut 0.7s ease forwards;
+    }
+
+    @keyframes popupIn {
+      to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes popupOut {
+      from {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+
+      to {
+        transform: scale(0.9) translateY(-30px);
+        opacity: 0;
+      }
+    }
+
+    .popup-glow {
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 200px;
+      background: radial-gradient(ellipse, rgba(57, 255, 20, 0.12), transparent 70%);
+      pointer-events: none;
+    }
+
+    .popup-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 0 16px rgba(57, 255, 20, 0.5));
+      animation: bounce 1.2s 1s ease infinite alternate;
+    }
+
+    @keyframes bounce {
+      from {
+        transform: translateY(0);
+      }
+
+      to {
+        transform: translateY(-6px);
+      }
+    }
+
+    .popup-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 2.2rem;
+      letter-spacing: 0.06em;
+      color: var(--accent3);
+      text-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+      margin-bottom: 0.4rem;
+    }
+
+    .popup-msg {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    .popup-msg strong {
+      color: var(--accent);
+    }
+
+    .popup-dismiss-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(57, 255, 20, 0.08);
+      border: 1px solid rgba(57, 255, 20, 0.3);
+      border-radius: 100px;
+      padding: 0.65rem 1.8rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent3);
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .popup-dismiss-btn:hover {
+      background: rgba(57, 255, 20, 0.16);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(57, 255, 20, 0.1);
+    }
+
+    /* auto-erase progress bar */
+    .popup-timer-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent3), var(--accent));
+      border-radius: 0 0 0 24px;
+      width: 100%;
+      transform-origin: left;
+      animation: timerShrink 20s linear 1s forwards;
+    }
+
+    @keyframes timerShrink {
+      from {
+        transform: scaleX(1);
+      }
+
+      to {
+        transform: scaleX(0);
+      }
+    }
   </style>
 </head>
 
 <body>
+  <!-- ====== SUCCESS POPUP ====== -->
+  <div id="successPopupOverlay">
+    <div class="success-popup" id="successPopup">
+      <div class="popup-glow"></div>
+      <div class="popup-icon">✅</div>
+      <div class="popup-title">Pipeline Complete</div>
+      <div class="popup-msg">
+        <strong>Successful automated pipeline</strong><br>
+        GitHub Webhook → Jenkins → Docker → Deploy<br>
+        Build <strong>#848</strong> · Branch <strong>main</strong> · 4m 2s
+      </div>
+      <button class="popup-dismiss-btn" id="popupDismissBtn">✕ &nbsp;Dismiss</button>
+      <div class="popup-timer-bar"></div>
+    </div>
+  </div>
   <!-- Grid Overlay -->
   <div class="grid-overlay"></div>
   <!-- Custom Cursor -->
@@ -1547,6 +2018,126 @@
           <div class="link" style="color:var(--muted);text-decoration:none;margin-top:0.6rem;font-size:0.75rem;">Branch:
             main</div>
         </div>
+      </div>
+    </div>
+  </div>
+  <!-- GITHUB WEBHOOKS SECTION -->
+  <div class="container webhook-section">
+    <div class="section-label">GitHub Webhook Integration</div>
+
+    <p class="webhook-intro">
+      This pipeline is fully automated via a <strong>GitHub Webhook</strong> connected to Jenkins.
+      Every <code
+        style="color:var(--accent2);background:rgba(255,107,53,0.08);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85em;">git push</code>
+      to the <strong>main</strong> branch instantly triggers the Jenkins pipeline — no manual intervention required.
+    </p>
+
+    <!-- Webhook trigger flow -->
+    <div class="webhook-flow">
+      <div class="wh-node">
+        <div class="wh-icon">👨‍💻</div>
+        <div class="wh-label">Developer</div>
+        <div class="wh-sub">git push<br>main</div>
+      </div>
+      <div class="wh-arrow">→</div>
+      <div class="wh-node">
+        <div class="wh-icon">
+          <svg height="28" viewBox="0 0 16 16" width="28" fill="currentColor" style="display:block;margin:0 auto;">
+            <path
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+          </svg>
+        </div>
+        <div class="wh-label">GitHub</div>
+        <div class="wh-sub">Sends HTTP<br>POST payload</div>
+      </div>
+      <div class="wh-arrow">→</div>
+      <div class="wh-node">
+        <div class="wh-icon">🪝</div>
+        <div class="wh-label">Webhook</div>
+        <div class="wh-sub">Hits Jenkins<br>endpoint</div>
+      </div>
+      <div class="wh-arrow">→</div>
+      <div class="wh-node">
+        <div class="wh-icon">⚙️</div>
+        <div class="wh-label">Jenkins</div>
+        <div class="wh-sub">Triggers<br>pipeline</div>
+      </div>
+      <div class="wh-arrow">→</div>
+      <div class="wh-node">
+        <div class="wh-icon">🐳</div>
+        <div class="wh-label">Docker</div>
+        <div class="wh-sub">Build &amp;<br>push image</div>
+      </div>
+      <div class="wh-arrow">→</div>
+      <div class="wh-node">
+        <div class="wh-icon">🚀</div>
+        <div class="wh-label">Deploy</div>
+        <div class="wh-sub">Live on<br>server</div>
+      </div>
+    </div>
+
+    <!-- Webhook event cards -->
+    <div class="webhook-events">
+      <div class="wh-event-card">
+        <div class="wh-event-header">
+          <span class="wh-event-badge wh-badge-push">push</span>
+          <span class="wh-event-title">Git Push Event</span>
+        </div>
+        <div class="wh-event-desc">
+          Every commit pushed to <strong style="color:var(--accent)">main</strong> triggers the webhook instantly.
+          GitHub sends a POST request to the Jenkins URL with full commit metadata.
+        </div>
+        <div class="wh-payload-box">
+          <span class="pl-key">"ref"</span>: <span class="pl-str">"refs/heads/main"</span>,<br>
+          <span class="pl-key">"after"</span>: <span class="pl-str">"a9f84b2..."</span>,<br>
+          <span class="pl-key">"pusher"</span>: { <span class="pl-key">"name"</span>: <span
+            class="pl-str">"vickytricky"</span> }
+        </div>
+      </div>
+      <div class="wh-event-card">
+        <div class="wh-event-header">
+          <span class="wh-event-badge wh-badge-pr">pull_request</span>
+          <span class="wh-event-title">PR Merge Event</span>
+        </div>
+        <div class="wh-event-desc">
+          When a pull request is merged into main, the webhook fires and Jenkins kicks off the full CI/CD pipeline —
+          ensuring every merge is validated.
+        </div>
+        <div class="wh-payload-box">
+          <span class="pl-key">"action"</span>: <span class="pl-str">"closed"</span>,<br>
+          <span class="pl-key">"merged"</span>: <span class="pl-num">true</span>,<br>
+          <span class="pl-key">"number"</span>: <span class="pl-num">42</span>
+        </div>
+      </div>
+      <div class="wh-event-card">
+        <div class="wh-event-header">
+          <span class="wh-event-badge wh-badge-tag">tag</span>
+          <span class="wh-event-title">Release Tag Event</span>
+        </div>
+        <div class="wh-event-desc">
+          Creating a release tag triggers a production-grade deployment pipeline with Docker image tagging and artifact
+          versioning.
+        </div>
+        <div class="wh-payload-box">
+          <span class="pl-key">"ref"</span>: <span class="pl-str">"refs/tags/v2.5.0"</span>,<br>
+          <span class="pl-key">"ref_type"</span>: <span class="pl-str">"tag"</span>,<br>
+          <span class="pl-key">"sender"</span>: { <span class="pl-key">"login"</span>: <span
+            class="pl-str">"vickytricky"</span> }
+        </div>
+      </div>
+    </div>
+
+    <!-- Webhook URL + status -->
+    <div class="wh-setup-box">
+      <div class="wh-setup-left">
+        <h4>Jenkins Webhook Endpoint</h4>
+        <p>GitHub is configured to send webhook payloads directly to this Jenkins URL. The <em>GitHub Plugin</em> in
+          Jenkins receives and validates the signature before triggering the job.</p>
+        <span class="wh-setup-url">http://&lt;jenkins-server&gt;:8080/github-webhook/</span>
+      </div>
+      <div class="wh-status-pill">
+        <span class="dot"></span>
+        Webhook Active
       </div>
     </div>
   </div>
@@ -1745,6 +2336,36 @@
           node.style.animation = `fadeSlideUp 0.5s ${i * 0.05}s ease both`;
         });
       }, 300);
+    });
+
+    // ====== SUCCESS POPUP LOGIC ======
+    const popupOverlay = document.getElementById('successPopupOverlay');
+    const successPopup = document.getElementById('successPopup');
+    const popupDismissBtn = document.getElementById('popupDismissBtn');
+
+    function dismissPopup() {
+      popupOverlay.classList.add('dismissing');
+      successPopup.classList.add('dismissing');
+      // Remove from DOM after animation completes
+      setTimeout(() => {
+        popupOverlay.style.display = 'none';
+      }, 900);
+    }
+
+    // Auto-dismiss after 20 seconds
+    const popupTimeout = setTimeout(dismissPopup, 20000);
+
+    popupDismissBtn.addEventListener('click', () => {
+      clearTimeout(popupTimeout);
+      dismissPopup();
+    });
+
+    // Close on backdrop click
+    popupOverlay.addEventListener('click', (e) => {
+      if (e.target === popupOverlay) {
+        clearTimeout(popupTimeout);
+        dismissPopup();
+      }
     });
   </script>
 </body>
