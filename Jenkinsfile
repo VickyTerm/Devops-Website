@@ -49,13 +49,10 @@ pipeline {
 
         stage('Stop Old Container') {
             steps {
-                sh """
-                    docker stop ${CONTAINER_NAME} || true
-                    docker rm -f ${CONTAINER_NAME} || true
-                """
+                sh 'docker rm -f devops-portal || true'
             }
         }
-
+        
         stage('Run New Container') {
             steps {
                 sh """
