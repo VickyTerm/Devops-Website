@@ -44,9 +44,12 @@ pipeline {
 
         stage('Stop Old Container') {
             steps {
-                sh 'docker rm -f ${CONTAINER_NAME} || true'
-            }
-        }
+                sh """
+                    docker rm -f devops-portal || true
+                    docker ps -a | grep devops-portal || echo "Container cleared"
+                """
+    }
+}
 
         stage('Run New Container') {
             steps {
