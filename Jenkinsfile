@@ -7,6 +7,7 @@ pipeline {
         IMAGE_TAG      = "${BUILD_NUMBER}"
         CONTAINER_NAME = "devops-portal"
         PORT           = "3000"
+        DOCKER_BUILDKIT = "0"
     }
 
     stages {
@@ -19,14 +20,6 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh """
-                    docker build -t ${IMAGE_NAME}:${IMAGE_TAG} -t ${IMAGE_NAME}:latest .
-                """
-            }
-        }
-
-        stage('Login to DockerHub') {
-            steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhub-credentials',
                     usernameVariable: 'USER',
@@ -34,6 +27,7 @@ pipeline {
                 )]) {
                     sh """
                         echo "\$PASS" | docker login -u "\$USER" --password-stdin
+                        docker build -t ${IMAGE_NAME}:${IMAGE_TAG} -t ${IMAGE_NAME}:latest .
                     """
                 }
             }
@@ -58,10 +52,10 @@ pipeline {
             steps {
                 sh """
                     docker run -d \
-                    --name ${CONTAINER_NAME} \
-                    --restart unless-stopped \
-                    -p ${PORT}:${PORT} \
-                    ${IMAGE_NAME}:${IMAGE_TAG}
+                        --name ${CONTAINER_NAME} \
+                        --restart unless-stopped \
+                        -p ${PORT}:${PORT} \
+                        ${IMAGE_NAME}:${IMAGE_TAG}
 
                     docker ps
                 """
@@ -73,11 +67,11 @@ pipeline {
                 sh """
                     echo "Checking application health..."
                     for i in 1 2 3 4 5; do
-                        curl -sf http://localhost:${PORT} && echo "✅ App is up!" && exit 0
+                        curl -sf http://localhost:${PORT} && echo "App is up!" && exit 0
                         echo "Attempt \$i failed, retrying in 5s..."
                         sleep 5
                     done
-                    echo "❌ Health check failed after 5 attempts"
+                    echo "Health check failed after 5 attempts"
                     exit 1
                 """
             }
@@ -86,11 +80,11 @@ pipeline {
 
     post {
         success {
-            echo "✅ CI/CD Pipeline completed successfully!"
-            echo "🌐 Application running at: http://3.110.131.39"
+            echo "Pipeline completed successfully!"
+            echo "Application running at: http://13.233.241.37:3000"
         }
         failure {
-            echo "❌ Pipeline failed. Check logs."
+            echo "Pipeline failed. Check logs."
             sh "docker rm -f ${CONTAINER_NAME} || true"
         }
         always {
