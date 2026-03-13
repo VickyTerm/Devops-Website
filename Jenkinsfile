@@ -11,7 +11,7 @@ pipeline {
 
     stages {
 
-        stage('Checkout Source') {
+        stage('Clone Repository') {
             steps {
                 git branch: 'main', url: 'https://github.com/VickyTerm/Devops-Website.git'
             }
@@ -47,12 +47,18 @@ pipeline {
             }
         }
 
-        stage('Deploy Container') {
+        stage('Stop Old Container') {
             steps {
                 sh """
                     docker stop ${CONTAINER_NAME} || true
-                    docker rm ${CONTAINER_NAME} || true
+                    docker rm -f ${CONTAINER_NAME} || true
+                """
+            }
+        }
 
+        stage('Run New Container') {
+            steps {
+                sh """
                     docker run -d \
                     --name ${CONTAINER_NAME} \
                     --restart unless-stopped \
