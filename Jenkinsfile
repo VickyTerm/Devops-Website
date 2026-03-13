@@ -20,7 +20,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sh """
-                    docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
+                    docker build -t ${IMAGE_NAME}:${IMAGE_TAG} -t ${IMAGE_NAME}:latest .
                 """
             }
         }
@@ -43,16 +43,17 @@ pipeline {
             steps {
                 sh """
                     docker push ${IMAGE_NAME}:${IMAGE_TAG}
+                    docker push ${IMAGE_NAME}:latest
                 """
             }
         }
 
         stage('Stop Old Container') {
             steps {
-                sh 'docker rm -f devops-portal || true'
+                sh 'docker rm -f ${CONTAINER_NAME} || true'
             }
         }
-        
+
         stage('Run New Container') {
             steps {
                 sh """
@@ -71,26 +72,30 @@ pipeline {
             steps {
                 sh """
                     echo "Checking application health..."
-                    sleep 10
-                    curl -f http://localhost:${PORT} || exit 1
+                    for i in 1 2 3 4 5; do
+                        curl -sf http://localhost:${PORT} && echo "✅ App is up!" && exit 0
+                        echo "Attempt \$i failed, retrying in 5s..."
+                        sleep 5
+                    done
+                    echo "❌ Health check failed after 5 attempts"
+                    exit 1
                 """
             }
         }
     }
 
     post {
-
         success {
             echo "✅ CI/CD Pipeline completed successfully!"
             echo "🌐 Application running at: http://3.110.131.39"
         }
-
         failure {
             echo "❌ Pipeline failed. Check logs."
+            sh "docker rm -f ${CONTAINER_NAME} || true"
         }
-
         always {
             sh "docker logout || true"
+            sh "docker image prune -f || true"
         }
     }
 }
