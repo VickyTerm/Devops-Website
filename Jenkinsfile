@@ -98,7 +98,7 @@ pipeline {
     post {
         success {
             echo "✅ Pipeline completed successfully!"
-            echo "🌐 Live at: http://13.233.241.37"
+            echo "🌐 Live at: http://98.130.95.84"
         }
         failure {
             echo "❌ Pipeline failed. Cleaning up..."
